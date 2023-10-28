@@ -30,7 +30,7 @@ app.use(cors({
 
 
 const _dirname = path.dirname("")
-const buildPath = path.join(_dirname, '../client/dist');
+const buildPath = path.join(__dirname, '../client/dist');
 
 app.use(express.static(buildPath));
 
