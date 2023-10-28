@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type="text"],input[type="password"],input[type="email"],input[type="number"],textarea{
+    @apply w-full border my-2 py-2 px-3 rounded-2xl;
+
+}
+
+button.login{
+    @apply w-full bg-blue-600 text-white px-4 py-2 rounded-2xl;
+}
+
+h2{
+    @apply text-lg font-bold;
+}
+
+textarea{
+    @apply h-32;
+}
+
+.custom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 10px;
+  }
+  
