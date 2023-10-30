@@ -11,7 +11,6 @@ const multer = require('multer');
 const User = require('./models/User');
 const Plane = require('./models/Planes');
 const Booking = require('./models/Booking');
-const path = require('path');
 require('dotenv').config();
 
 
@@ -20,31 +19,10 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:5173'
+    origin: '*'
 }));
 
 
-
-
-
-
-
-const _dirname = path.dirname("")
-const buildPath = path.join(__dirname, '../client/dist');
-
-app.use(express.static(buildPath));
-
-app.get('/', (req, res) => {
-    
-    res.sendFile(
-        path.join(_dirname, '../client/dist/index.html'),
-        function (err) {
-            if (err) {
-                res.status(500).send(err)
-            }
-        }
-    )
-});
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

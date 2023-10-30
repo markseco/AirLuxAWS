@@ -7,7 +7,6 @@ const Booking = new mongoose.Schema({
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     price: { type: Number, required: true },
-    email: {type: String, required: true},
 });
 
 
