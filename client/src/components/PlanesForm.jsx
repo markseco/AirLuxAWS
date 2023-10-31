@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PhotosUploader from './PhotosUploader';
 import AccountNav from './AccountNav';
 import { Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from "../UserContext.jsx";
 
 
 export default function PlanesForm() {
 
     const {id} = useParams();
-    console.log(id);
+    const { user } = useContext(UserContext);
     const [name,setName] = useState('');
     const [capacity,setCapacity] = useState(0);
     const [speed,setSpeed] = useState(0);
@@ -115,11 +116,12 @@ export default function PlanesForm() {
           photos: addedPhotos,
           description,
           information,
+	  user,
         }
 
         if(id){
           axios.put(`/planes/${id}`, {
-            id, ...data
+           user, id, ...data
           }).then(res => {
             setRedirectPlanesList(true)
           })

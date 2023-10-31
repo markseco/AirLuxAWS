@@ -156,16 +156,24 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
     
 });
 
-app.post('/planes', (req, res) => {
+app.post('/planes', async (req, res) => {
     try{
         const { name, description, capacity, speed, range, photos, information, price, airportLocation } = req.body;
-        console.log(req.body)
-        const { token } = req.cookies;
-        jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
-            if(err){
-                return res.status(401).json(err);
-            }
-            const { id } = decoded;
+        const { user } = req.body;
+
+        const userDoc = await User.findOne({user})
+
+
+        const cookieOptions = {
+       	 sameSite: 'none',
+       	 httpOnly: true,
+       	 secure: true,
+   	 };
+
+        jwt.sign({email:userDoc.email, id:userDoc._id}, process.env.JWT_SECRET, {}, async (err, token) => {
+       	     if(err){
+           	 return res.status(401).json(err);
+       	     }
             const plane = await Plane.create({
                 name,
                 description,
@@ -176,24 +184,33 @@ app.post('/planes', (req, res) => {
                 images: photos,
                 extraInfo: information,
                 price,
-                owner: id
+                owner: userDoc._id
             });
             res.json(plane);
         });
     }catch(err){
-        console.error(err);
+        console.error(err)
         res.status(500).json(err);
     }
 });
 
 app.get('/user-planes', async (req, res) => {
-    const { token } = req.cookies;
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    const { user } = req.body;
+
+    const userDoc = await User.findOne({user})
+
+
+    const cookieOptions = {
+        sameSite: 'none',
+        httpOnly: true,
+        secure: true,
+    };
+
+    jwt.sign({email:userDoc.email, id:userDoc._id}, process.env.JWT_SECRET, {}, async (err, token) => {
         if(err){
             return res.status(401).json(err);
         }
-        const { id } = decoded;
-        const planes = await Plane.find({owner: id});
+        const planes = await Plane.find({owner: userDoc._id});
         res.json(planes);
     });
 });
@@ -205,17 +222,23 @@ app.get('/planes/:id', async (req, res) => {
 });
 
 app.put('/planes/:id', async (req, res) => {
-    const { token } = req.cookies;
+    const { user } = req.body;
     const { id, name, description, capacity, speed, range, photos, information, price, airportLocation } = req.body;
+   
+    console.log(user)
+    const cookieOptions = {
+        sameSite: 'none',
+        httpOnly: true,
+        secure: true,
+    };
 
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    jwt.sign({email:user.email, id:user._id}, process.env.JWT_SECRET, {}, async (err, token) => {
         if(err){
             return res.status(401).json(err);
         }
-
         const planeDoc = await Plane.findById(id);
-        console.log(planeDoc);
-        if(decoded.id === planeDoc.owner.toString()){
+
+        if(user._id === planeDoc.owner.toString()){
             planeDoc.set({
                 name,
                 description,
@@ -240,16 +263,22 @@ app.get('/planes', async (req, res) => {
 });
 
 app.post('/planes/:id/book', async (req, res) => {
-    const { token } = req.cookies;
-    const { id, startDate, endDate, price } = req.body;
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    const { user, startDate, endDate, price, id } = req.body;
+
+    const cookieOptions = {
+        sameSite: 'none',
+        httpOnly: true,
+        secure: true,
+    };
+
+    jwt.sign({email:user.email, id:user._id}, process.env.JWT_SECRET, {}, async (err, token) => {
         if(err){
             return res.status(401).json(err);
         }
         const plane = await Plane.findById(id);
         const booking = await Booking.create({
             plane: plane._id,
-            bookingUser: decoded.id,
+            bookingUser: user._id,
             lenderUser: plane.owner,
             startDate,
             endDate,
@@ -261,15 +290,23 @@ app.post('/planes/:id/book', async (req, res) => {
 });
 
 app.get('/bookings', async (req, res) => {
-    console.log('im here start');
-    const { token } = req.cookies;
-    console.log(token);
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    
+    const { user } = req.body;
+    
+    const userDoc = await User.findOne({user})
+
+
+    const cookieOptions = {
+        sameSite: 'none',
+        httpOnly: true,
+        secure: true,
+    };
+
+    jwt.sign({email:userDoc.email, id:userDoc._id}, process.env.JWT_SECRET, {}, async (err, token) => {
         if(err){
             return res.status(401).json(err);
         }
-	console.log('im here no error');
-        const bookings = await Booking.find({bookingUser: decoded.id}).populate('plane');
+        const bookings = await Booking.find({bookingUser: userDoc._id}).populate('plane');
         res.json(bookings);
     });
 });

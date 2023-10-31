@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
+import { UserContext } from "../UserContext.jsx"
 
 export default function BookingWidget({plane}){
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [redirect, setRedirect] = useState(false);
+    const { user } = useContext(UserContext);
+	
 
     let numberOfDays = 0;
 
@@ -17,6 +20,7 @@ export default function BookingWidget({plane}){
 
     function bookPlane(){
         axios.post('/planes/:id/book', {
+	    user,
             id: plane._id,
             startDate,
             endDate,

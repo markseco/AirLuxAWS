@@ -3,15 +3,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import DatesFormatting from "../components/DatesFormatting";
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
+
 
 
 
 export default function BookingsPage() {
 
     const [bookings, setBookings] = useState([]);
+    const { user } = useContext(UserContext);
+
 
     useEffect(() => {
-        axios.get('/bookings').then((response) => {
+        axios.get('/bookings',{user}).then((response) => {
             setBookings(response.data);
         })
     }, [])

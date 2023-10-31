@@ -1,8 +1,10 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import Account from "./AccountPage";
 import AccountNav from "../components/AccountNav";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "../UserContext.jsx";
+
 
 
 
@@ -10,9 +12,11 @@ import axios from "axios";
 export default function PlanesPage(){
 
     const [planes, setPlanes] = useState([]);
+    const { user } = useContext(UserContext);
 
+	
     useEffect(() => {
-        axios.get('/user-planes').then((response) => {
+        axios.get('/user-planes', user).then((response) => {
             setPlanes(response.data);
         })
     }, [])
