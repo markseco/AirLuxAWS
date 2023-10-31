@@ -32,7 +32,7 @@ export default function PlanesPage(){
                         <Link to={`/account/planes/${plane._id}`} className="flex cursor-pointer mt-4 bg-gray-100 gap-4 p-4 rounded-2xl" key={plane._id}>
                             <div className="w-32 h-32 bg-gray-300 shrink-0">
                                 {plane.images.length > 0 && (
-                                    <img className="w-full h-full object-cover" src={`http://localhost:4000/uploads/${plane.images[0]}`} alt="" />
+                                    <img className="w-full h-full object-cover" src={`http://52.17.153.59:4000/uploads/${plane.images[0]}`} alt="" />
                                 )}
                             </div>
                             <div className="grow-0 shrink">

@@ -19,7 +19,7 @@ export default function PlaneGallery({plane}) {
                 </div>
                 {plane?.images?.length > 0 && plane.images?.map((image) => (
                     <div>
-                        <img className="w-full h-full object-cover" src={`http://localhost:4000/uploads/${image}`} alt="" />
+                        <img className="w-full h-full object-cover" src={`http://52.17.153.59:4000/uploads/${image}`} alt="" />
                     </div>
                 ))}
             </div>
@@ -33,17 +33,17 @@ export default function PlaneGallery({plane}) {
                     <div>
                         {plane.images?.[0] && (
                             <div className="">
-                                <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover" src={`http://localhost:4000/uploads/${plane.images[0]}`} alt="" />
+                                <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover" src={`http://52.17.153.59:4000/uploads/${plane.images[0]}`} alt="" />
                             </div>
                         )}
                     </div>
                     <div className="grid">
                         {plane.images?.[1] && (
-                            <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover" src={`http://localhost:4000/uploads/${plane.images[1]}`} alt="" />
+                            <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover" src={`http://52.17.153.59:4000/uploads/${plane.images[1]}`} alt="" />
                         )}
                         <div className="overflow-hidden">
                         {plane.images?.[2] && (
-                            <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover relative top-2" src={`http://localhost:4000/uploads/${plane.images[2]}`} alt="" />
+                            <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover relative top-2" src={`http://52.17.153.59:4000/uploads/${plane.images[2]}`} alt="" />
                         )}
                         </div>  
                     </div>

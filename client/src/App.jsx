@@ -14,7 +14,7 @@ import BookingsPage from './pages/BookingsPage';
 import BookingPage from './pages/BookingPage';
 import FilteringPage from './pages/FilteringPage';
 
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = 'http://52.17.153.59:4000';
 axios.defaults.withCredentials = true;
 function App() {
 

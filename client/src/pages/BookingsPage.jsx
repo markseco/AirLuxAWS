@@ -31,7 +31,7 @@ export default function BookingsPage() {
                     <Link to={`/account/bookings/${booking._id}`} className="flex cursor-pointer mt-4 bg-gray-100 gap-4 p-4 w-11/12 max-w-screen-lg rounded-xl " key={booking._id}>
                         <div className="w-32 h-32 bg-gray-300 shrink-0">
                             {booking.plane.images.length > 0 && (
-                                <img className="w-full h-full object-cover" src={`http://localhost:4000/uploads/${booking.plane.images[0]}`} alt="" />
+                                <img className="w-full h-full object-cover" src={`http://52.17.153.59:4000/uploads/${booking.plane.images[0]}`} alt="" />
                             )}
                         </div>
                         <div className="grow-0 shrink">

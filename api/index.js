@@ -11,6 +11,7 @@ const multer = require('multer');
 const User = require('./models/User');
 const Plane = require('./models/Planes');
 const Booking = require('./models/Booking');
+const path = require('path');
 require('dotenv').config();
 
 
@@ -19,8 +20,25 @@ app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(cors({
     credentials: true,
-    origin: '*'
+    origin: 'http://52.17.153.59'
 }));
+
+const _dirname = path.dirname("")
+const buildPath = path.join(_dirname, '../client/dist');
+
+app.use(express.static(buildPath));
+
+app.get('/', (req, res) => {
+
+    res.sendFile(
+        path.join(_dirname, '../client/dist/index.html'),
+        function (err) {
+            if (err) {
+                res.status(500).send(err)
+            }
+        }
+    )
+});
 
 
 
@@ -243,11 +261,14 @@ app.post('/planes/:id/book', async (req, res) => {
 });
 
 app.get('/bookings', async (req, res) => {
+    console.log('im here start');
     const { token } = req.cookies;
+    console.log(token);
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
         if(err){
             return res.status(401).json(err);
         }
+	console.log('im here no error');
         const bookings = await Booking.find({bookingUser: decoded.id}).populate('plane');
         res.json(bookings);
     });

@@ -68,7 +68,7 @@ export default function FilteringPage() {
                         <Link to={'/plane/' + plane._id } className="m-2" key={plane._id}>
                             <div className='bg-gray-500 rounded-2xl flex'>
                                 {plane.images.length > 0 && (
-                                    <img className='rounded-2xl object-cover aspect-square' src={`http://localhost:4000/uploads/${plane.images[0]}`} alt="" />
+                                    <img className='rounded-2xl object-cover aspect-square' src={`http://52.17.153.59:4000/uploads/${plane.images[0]}`} alt="" />
                                 )}   
                             </div> 
                             <h2>{plane.name}</h2>
