@@ -20,7 +20,7 @@ AirLux is a web application built using the MERN (MongoDB, Express, React, Node)
 ## Deployment
 The AirLux app is deployed on an AWS EC2 instance and can be accessed at the following URL:
 
-[AiLux](http://52.17.153.59:4000/)
+[AirLux](http://52.17.153.59:4000/)
 
 
 ## Technologies Used
